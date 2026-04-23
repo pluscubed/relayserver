@@ -1,2 +1,6 @@
 #!/bin/sh
-launchctl load /Library/LaunchDaemons/dev.copper.relayserver.plist
+set -e
+
+launchctl bootout system /var/jb/Library/LaunchDaemons/dev.copper.relayserver.plist >/dev/null 2>&1 || true
+launchctl bootstrap system /var/jb/Library/LaunchDaemons/dev.copper.relayserver.plist
+launchctl kickstart -k system/dev.copper.relayserver >/dev/null 2>&1 || true

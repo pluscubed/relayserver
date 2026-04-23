@@ -1,2 +1,2 @@
 #!/bin/sh
-launchctl unload /Library/LaunchDaemons/dev.copper.relayserver.plist
+launchctl bootout system /var/jb/Library/LaunchDaemons/dev.copper.relayserver.plist >/dev/null 2>&1 || true

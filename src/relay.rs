@@ -9,6 +9,8 @@ use tokio_tungstenite::{connect_async, tungstenite::Message, MaybeTlsStream, Web
 
 use crate::{base64_encode, c::mg_copy_answer_rs, error::RelayError, nac::generate_validation_data, util::{Resource, ResourceManager}};
 
+const REPORTED_IOS_VERSION: &str = "26.4.2";
+const REPORTED_IOS_BUILD_ID: &str = "23E261";
 
 #[derive(Deserialize, Serialize, Clone)]
 pub struct RelayState {
@@ -122,8 +124,8 @@ impl RelayResource {
                             ws_stream.send(command.respond(CommandData::Versions { versions: RelayVersions {
                                 hardware_version: uts.machine().to_str().unwrap().to_string(),
                                 software_name: "iPhone OS".to_string(),
-                                software_version: mg_copy_answer_rs("ProductVersion"),
-                                software_build_id: mg_copy_answer_rs("BuildVersion"),
+                                software_version: REPORTED_IOS_VERSION.to_string(),
+                                software_build_id: REPORTED_IOS_BUILD_ID.to_string(),
                                 unique_device_id: mg_copy_answer_rs("UniqueDeviceID"),
                                 serial_number: mg_copy_answer_rs("SerialNumber"),
                             } })).await?;
